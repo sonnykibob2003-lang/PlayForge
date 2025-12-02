@@ -1,0 +1,25 @@
+README.txt
+
+Gaming Store Website - CRUD Functionality Overview
+--------------------------------------------------
+
+This Node.js and Express-based web application simulates an online gaming store that allows users to manage their shopping cart and enables admins to manage the product listings. The application uses EJS for rendering dynamic views and maintains product and cart data in memory.
+
+1. CREATE
+---------
+Admins can add new products through a dedicated form at the '/products/new' route. Upon submission, the server processes the data and appends the new product to the products list. This enables continuous expansion of the product catalog.
+
+2. READ
+-------
+Users can browse the available products on the home page ('/') and on the '/products' route. Cart contents can be viewed at '/cart'. These routes retrieve and render the current state of the product and cart data using EJS templates.
+
+3. UPDATE
+---------
+Users can update the quantity of items in their cart via '+' and '-' buttons. The server handles these actions through POST routes, updating the in-memory cart data accordingly without refreshing the product list or requiring re-entry of product information.
+
+4. DELETE
+---------
+Admins can remove products from the store using the 'Delete' button on each product card, which sends a POST request to remove the product from the product array. Users can also delete items from their cart using a 'Remove' button, which updates the cart state on the server.
+
+--------------------------------------------------
+This application demonstrates basic CRUD operations in a full-stack JavaScript environment using Express.js and EJS for server-side rendering.

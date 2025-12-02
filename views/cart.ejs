@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayForge Official Store</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="bg-dark text-white">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark custom-navbar sticky-top bg-black">
+        <div class="container">
+            <a class="navbar-brand text-uppercase d-flex align-items-center" href="#">
+                <img src="/Assets/playforgelogo.png" alt="Logo" width="200" height="40" class="me-2">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Games & Consoles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">
+                            <i class="bi bi-cart-check-fill fs-5 position-relative">
+                                <span id="count"></span>
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-5">
+        <% if (cart.length===0) { %>
+            <p class="text-center">Your cart is empty.</p>
+            <% } else { %>
+                <% cart.forEach(item=> { %>
+                    <div class="d-flex flex-wrap justify-content-between align-items-start mb-4 border-bottom pb-4">
+                        <div class="me-3">
+                            <img src="<%= item.image %>" alt="<%= item.name %>" class="img-fluid rounded"
+                                style="max-width: 150px;" onerror="this.src='/Assets/placeholder.png';">
+                        </div>
+
+                        <div class="details flex-grow-1 text-white">
+                            <h5>
+                                <%= item.name %>
+                            </h5>
+                            <p>
+                                <%= item.platform %>
+                            </p>
+
+                            <!-- Quantity Controls -->
+                            <div class="d-flex align-items-center mb-2">
+                                <form action="/decrease-qty" method="POST" class="me-2">
+                                    <input type="hidden" name="id" value="<%= item._id %>">
+                                    <button type="submit" class="btn btn-outline-light btn-sm">-</button>
+                                </form>
+
+                                <span class="mx-2">Qty: <%= item.qty %></span>
+
+                                <form action="/increase-qty" method="POST" class="ms-2">
+                                    <input type="hidden" name="id" value="<%= item._id %>">
+                                    <button type="submit" class="btn btn-outline-light btn-sm">+</button>
+                                </form>
+                            </div>
+
+                            <form action="/remove-from-cart" method="POST">
+                                <input type="hidden" name="id" value="<%= item._id %>">
+                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                            </form>
+                        </div>
+
+                        <div class="price mt-2 text-white fw-bold">
+                            <p class="mb-0">$<%= (item.price * item.qty).toFixed(2) %>
+                            </p>
+                        </div>
+                    </div>
+                    <% }) %>
+
+
+                        <!-- Subtotal -->
+                        <div
+                            class="total bg-grey text-white p-4 rounded d-flex justify-content-between align-items-center mt-4">
+                            <h3 class="mb-0">Subtotal</h3>
+                            <h3 class="mb-0">$<%= subtotal.toFixed(2) %>
+                            </h3>
+                        </div>
+                        <% } %>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-5 py-4 text-white">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col col-md-3">
+                    <h4>Company</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About us</a></li>
+                        <li><a href="#" class="text-white">Our services</a></li>
+                        <li><a href="#" class="text-white">Privacy policy</a></li>
+                        <li><a href="#" class="text-white">Affiliate program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Get help</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">FAQ</a></li>
+                        <li><a href="#" class="text-white">Shipping</a></li>
+                        <li><a href="#" class="text-white">Returns</a></li>
+                        <li><a href="#" class="text-white">Order status</a></li>
+                        <li><a href="#" class="text-white">Payment options</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Games & Consoles</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Games</a></li>
+                        <li><a href="#" class="text-white">Consoles</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Follow us</h4>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-2"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous">
+        </script>
+    <script src="/addtocart.js"></script>
+</body>
+
+</html>
