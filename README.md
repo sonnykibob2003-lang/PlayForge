@@ -76,7 +76,19 @@ PlayForge/
 
 
 # --------------------------------------------DEPLOYMENT-----------------------------------------------
+Deployment on Render
 
+The PlayForge website is deployed using Render
+
+, a cloud platform that enables automatic deployment directly from a GitHub repository. Render continuously monitors the repository for changes, so whenever new code is pushed to GitHub, Render automatically rebuilds and redeploys the application without any manual intervention. This feature ensures that the live website is always up-to-date with the latest version of the code.
+
+Compared to traditional cloud providers like AWS or GCP, Render offers a simpler deployment process with one-click setup, automatic builds, and environment variable management. While AWS or GCP provide more extensive scalability and fine-grained control, Render is ideal for smaller projects and rapid development because it minimizes configuration complexity. You can still scale your application as needed, but the deployment process remains very straightforward.
+
+Sensitive data, such as the MongoDB connection string, is secured using Render’s environment variables. Instead of hardcoding credentials in the code, the .env file values are added directly in Render’s Environment tab. The application then reads these values using the dotenv package in Node.js. This ensures that sensitive information is never exposed in the public repository or the deployed website.
+
+Live URL of the deployed website: https://playforge.onrender.com
+
+GitHub repository: https://github.com/sonnykibob2003-lang/PlayForge
 
 
 
